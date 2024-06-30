@@ -19,9 +19,9 @@ def live(scripId):
   chkdt=json.load(f)
   for item in chkdt:
     if(item['SYMBOL']==scripId):
-        print("item found:",item['SYMBOL'])
+        #print("item found:",item['SYMBOL'])
         q = n.stock_quote(scripId)
-        print(q['priceInfo'])
+        #print(q['priceInfo'])
         perChange = round(q['priceInfo']['pChange'],2)
         res_data = {
           "Last Price":q['priceInfo']['lastPrice'],
@@ -52,19 +52,26 @@ def history(scripId,fromDate,toDate):
   from_date=date(dt_frm.year,dt_frm.month,dt_frm.day)
   to_date = date(dt_to.year,dt_to.month,dt_to.day)
   
-  df = stock_df(symbol=scripId,
+  f= open('scripList.json')
+  chkdt=json.load(f)
+  for item in chkdt:
+    if(item['SYMBOL']==scripId):
+        df = stock_df(symbol=scripId,
                   from_date=from_date,
                   to_date=to_date,
                   series="EQ")
   
-  # storing the data in JSON format
-  df.to_json('file.json', orient = 'split', compression = 'infer', index = 'true')
+        # storing the data in JSON format
+        df.to_json('file.json', orient = 'split', compression = 'infer', index = 'true')
 
-  df_column = df.columns.values.tolist()
-  df_list = df.values.tolist()
-    #print(df_list[3])
-  data = jsonify({'columns': df_column, 'values': df_list})
+        df_column = df.columns.values.tolist()
+        df_list = df.values.tolist()
     
+        data = jsonify({'columns': df_column, 'values': df_list})
+        break
+    else:
+       data = "Scrip not found"
+  
   return (data) 
     
 #jsonify(data[data])

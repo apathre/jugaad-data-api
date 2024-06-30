@@ -1,0 +1,346 @@
+# The command that runs the program. If the interpreter field is set, it will have priority and this run command will do nothing
+run = "python3 main.py"
+
+# The primary language of the repl. There can be others, though!
+language = "python3"
+entrypoint = "main.py"
+# A list of globs that specify which files and directories should
+# be hidden in the workspace.
+hidden = ["venv", ".config", "**/__pycache__", "**/.mypy_cache", "**/*.pyc"]
+
+# Specifies which nix channel to use when building the environment.
+[nix]
+channel = "stable-22_11"
+
+# The command to start the interpreter.
+[interpreter]
+  [interpreter.command]
+  args = [
+    "stderred",
+    "--",
+    "prybar-python310",
+    "-q",
+    "--ps1",
+    "\u0001\u001b[33m\u0002\u0001\u001b[00m\u0002 ",
+    "-i",
+  ]
+  env = { LD_LIBRARY_PATH = "$PYTHON_LD_LIBRARY_PATH" }
+
+[env]
+VIRTUAL_ENV = "${REPL_HOME}/venv"
+PATH = "${VIRTUAL_ENV}/bin"
+PYTHONPATH = "$PYTHONHOME/lib/python3.10:${VIRTUAL_ENV}/lib/python3.10/site-packages"
+REPLIT_POETRY_PYPI_REPOSITORY = "https://package-proxy.replit.com/pypi/"
+MPLBACKEND = "TkAgg"
+POETRY_CACHE_DIR = "${REPL_HOME}/.cache/pypoetry"
+
+# Enable unit tests. This is only supported for a few languages.
+[unitTest]
+language = "python3"
+
+# Add a debugger!
+[debugger]
+support = true
+
+  # How to start the debugger.
+  [debugger.interactive]
+  transport = "localhost:0"
+  startCommand = ["dap-python", "main.py"]
+
+    # How to communicate with the debugger.
+    [debugger.interactive.integratedAdapter]
+    dapTcpAddress = "localhost:0"
+
+    # How to tell the debugger to start a debugging session.
+    [debugger.interactive.initializeMessage]
+    command = "initialize"
+    type = "request"
+
+      [debugger.interactive.initializeMessage.arguments]
+      adapterID = "debugpy"
+      clientID = "replit"
+      clientName = "replit.com"
+      columnsStartAt1 = true
+      linesStartAt1 = true
+      locale = "en-us"
+      pathFormat = "path"
+      supportsInvalidatedEvent = true
+      supportsProgressReporting = true
+      supportsRunInTerminalRequest = true
+      supportsVariablePaging = true
+      supportsVariableType = true
+
+    # How to tell the debugger to start the debuggee application.
+    [debugger.interactive.launchMessage]
+    command = "attach"
+    type = "request"
+
+      [debugger.interactive.launchMessage.arguments]
+      logging = {}
+
+# Configures the packager.
+[packager]
+language = "python3"
+ignoredPackages = ["unit_tests"]
+
+  [packager.features]
+  enabledForHosting = false
+  # Enable searching packages from the sidebar.
+  packageSearch = true
+  # Enable guessing what packages are needed from the code.
+  guessImports = true
+
+# These are the files that need to be preserved when this 
+# language template is used as the base language template
+# for Python repos imported from GitHub
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config", "venv"]
+
+[languages]
+
+[languages.python3]
+pattern = "**/*.py"
+
+[languages.python3.languageServer]
+start = "pylsp"
+
+[deployment]
+run = ["sh", "-c", "python3 main.py"]
+
+[[ports]]
+localPort = 2227
+
+[[ports]]
+localPort = 2280
+
+[[ports]]
+localPort = 2286
+
+[[ports]]
+localPort = 2489
+externalPort = 80
+
+[[ports]]
+localPort = 2642
+
+[[ports]]
+localPort = 2743
+
+[[ports]]
+localPort = 2834
+
+[[ports]]
+localPort = 2872
+
+[[ports]]
+localPort = 3015
+
+[[ports]]
+localPort = 3018
+
+[[ports]]
+localPort = 3019
+
+[[ports]]
+localPort = 3077
+
+[[ports]]
+localPort = 3167
+
+[[ports]]
+localPort = 3251
+
+[[ports]]
+localPort = 3344
+
+[[ports]]
+localPort = 3471
+
+[[ports]]
+localPort = 3527
+
+[[ports]]
+localPort = 3539
+
+[[ports]]
+localPort = 3843
+
+[[ports]]
+localPort = 3847
+
+[[ports]]
+localPort = 3852
+
+[[ports]]
+localPort = 3856
+
+[[ports]]
+localPort = 3945
+
+[[ports]]
+localPort = 3961
+
+[[ports]]
+localPort = 4018
+
+[[ports]]
+localPort = 4025
+
+[[ports]]
+localPort = 4079
+
+[[ports]]
+localPort = 4284
+
+[[ports]]
+localPort = 4356
+
+[[ports]]
+localPort = 4403
+
+[[ports]]
+localPort = 4560
+
+[[ports]]
+localPort = 4586
+
+[[ports]]
+localPort = 4615
+
+[[ports]]
+localPort = 4898
+
+[[ports]]
+localPort = 4901
+
+[[ports]]
+localPort = 4973
+
+[[ports]]
+localPort = 5089
+
+[[ports]]
+localPort = 5160
+
+[[ports]]
+localPort = 5212
+
+[[ports]]
+localPort = 5697
+
+[[ports]]
+localPort = 5712
+
+[[ports]]
+localPort = 5797
+
+[[ports]]
+localPort = 5938
+
+[[ports]]
+localPort = 6044
+
+[[ports]]
+localPort = 6045
+
+[[ports]]
+localPort = 6150
+
+[[ports]]
+localPort = 6238
+
+[[ports]]
+localPort = 6241
+
+[[ports]]
+localPort = 6261
+
+[[ports]]
+localPort = 6283
+
+[[ports]]
+localPort = 6359
+
+[[ports]]
+localPort = 6416
+
+[[ports]]
+localPort = 6417
+
+[[ports]]
+localPort = 6802
+
+[[ports]]
+localPort = 6915
+
+[[ports]]
+localPort = 6966
+
+[[ports]]
+localPort = 7118
+
+[[ports]]
+localPort = 7124
+
+[[ports]]
+localPort = 7418
+
+[[ports]]
+localPort = 7447
+
+[[ports]]
+localPort = 7453
+
+[[ports]]
+localPort = 7468
+
+[[ports]]
+localPort = 7723
+
+[[ports]]
+localPort = 7743
+
+[[ports]]
+localPort = 7770
+
+[[ports]]
+localPort = 7995
+
+[[ports]]
+localPort = 8097
+
+[[ports]]
+localPort = 8100
+
+[[ports]]
+localPort = 8526
+
+[[ports]]
+localPort = 8557
+
+[[ports]]
+localPort = 8684
+
+[[ports]]
+localPort = 8730
+
+[[ports]]
+localPort = 8734
+
+[[ports]]
+localPort = 8735
+
+[[ports]]
+localPort = 8805
+
+[[ports]]
+localPort = 8809
+
+[[ports]]
+localPort = 8859
+
+[[ports]]
+localPort = 8939
+
+[[ports]]
+localPort = 8959
